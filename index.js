@@ -63,11 +63,17 @@ const cargar = () => {
 
  const mostrar = () => {
     // Variable para ir armando la cadena:
-    console.log(this.disco)
-    const cantidadDeDiscos = discos.length;
     let html = '';
 
     // Cositas:
+    for (const key in discos[0]) {
+        if (Object.hasOwnProperty.call(discos[0], key)) {
+            const element = discos[0][key];
+            console.log(key,element);
+            html += `<p>${key}: ${element}</p>`;
+
+        }
+    }
 
     // Si modificaste el nombre de la variable para ir armando la cadena, también hacelo acá:
     document.getElementById('info').innerHTML = html; // <--- ahí es acá
