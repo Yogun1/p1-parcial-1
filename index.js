@@ -6,7 +6,7 @@
 
 // Ejemplo de la estructura de un disco:
 let disco = {
-    Nombre: '',
+    nombre: '',
     Autor: '',
     codigo: 0,
     Pistas: [
@@ -28,6 +28,12 @@ const cargar = () => {
         //validacion
     } while (codigo <= 0 || codigo >= 1000 || isNaN(codigo));
     // pide las pistas 
+    let nombre = '';
+
+    do {
+        nombre = prompt('Ingrese el nombre del disco')
+    } while (nombre.length == 0);
+
 
     //Generar un lugar donde guardar las pistas
     /*let pistas = [];
@@ -53,7 +59,8 @@ const cargar = () => {
     // genera el disco 
     const nuevoDisco = {
         ...disco,
-        codigo: codigo
+        codigo: codigo,
+        nombre: nombre
     };
     //Guardamos el disco
     discos.push(nuevoDisco);
