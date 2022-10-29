@@ -7,12 +7,12 @@
 // Ejemplo de la estructura de un disco:
 let disco = {
     nombre: '',
-    Autor: '',
+    autor: '',
     codigo: 0,
-    Pistas: [
+    pistas: [
         {
-            Nombre: '',
-            Duracion: 0,  
+            nombre: '',
+            duracion: 0,  
         }
     ]
 }
@@ -22,45 +22,50 @@ let discos = [];
 // Función Cargar:
 const cargar = () => {
     let codigo;
-
+// Pedimos codigo de disco
     do {
         codigo = +prompt('Ingrese un codigo')
         //validacion
     } while (codigo <= 0 || codigo >= 1000 || isNaN(codigo));
-    // pide las pistas 
+    // pide el nombre del disco 
     let nombre = '';
 
     do {
         nombre = prompt('Ingrese el nombre del disco')
     } while (nombre.length == 0);
 
+    // hacer un do while para autor
+    let autor = '';
+
+    do {
+        autor = prompt('Ingrese el autor del disco')
+    } while (autor.length == 0);
 
     //Generar un lugar donde guardar las pistas
-    /*let pistas = [];
+    let pistas = [];
 
     // pedir las pistas
     do {
         //pedir el nombre
         //Pedir la duracion
-        //guardar la pista
-
+        
         let pista = {
-            nombre: 'NOMBRE',
-            duracion: 'DURACION'
+            nombre: '',
+            duracion: ''
         };
-
+        //guardar la pista
         pistas.push(pista)
 
     }
-    while (confirm('Ingrese la pista')) {
-
-    }*/
+    while (confirm('Ingrese la pista'));
 
     // genera el disco 
     const nuevoDisco = {
         ...disco,
         codigo: codigo,
-        nombre: nombre
+        nombre: nombre,
+        autor: autor,
+        pistas: pistas
     };
     //Guardamos el disco
     discos.push(nuevoDisco);
@@ -71,20 +76,20 @@ const cargar = () => {
  const mostrar = () => {
     // Variable para ir armando la cadena:
     let html = '';
+    html += `<p>nombre: ${discos[0].nombre}</p>`;
+    html += `<p>autor: ${discos[0].autor}</p>`;
+    html += `<p>codigo: ${discos[0].codigo}</p>`;
+    
+    // recorrer pistas con ul y li + .map:
+    let detallePistas = discos[0].pistas.map(pista => {
+        return `<li>${pista.nombre} ${pista.duracion}</li>` 
+    })    
 
-    // Cositas:
-    for (const key in discos[0]) {
-        if (Object.hasOwnProperty.call(discos[0], key)) {
-            const element = discos[0][key];
-            console.log(key,element);
-            html += `<p>${key}: ${element}</p>`;
-
-        }
-    }
+    html += `<ul>${detallePistas}</ul>`;
 
     // Si modificaste el nombre de la variable para ir armando la cadena, también hacelo acá:
     document.getElementById('info').innerHTML = html; // <--- ahí es acá
-};
+    };
 
 // Todas las funciones que necesites:
 
@@ -115,3 +120,6 @@ const MostrarColor = function () {
 
 //let array = ['Alejandro', 'Diaz', 'true']
 //let array2 = []
+
+
+// para las pistas hacer un ul y li con un .map
