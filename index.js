@@ -21,13 +21,21 @@ let discos = [];
 
 // Función Cargar:
 const cargar = () => {
+
+    do {
+            
     let codigo;
 // Pedimos codigo de disco
     do {
         codigo = +prompt('Ingrese un codigo')
         //validacion
     } while (codigo <= 0 || codigo >= 1000 || isNaN(codigo));
-    // pide el nombre del disco 
+     
+    //Si el usuario ingresa un código numérico que ya fue cargado, se deberá pedir otro código
+
+
+
+    // pide el nombre del disco
     let nombre = '';
 
     do {
@@ -47,17 +55,28 @@ const cargar = () => {
     // pedir las pistas
     do {
         //pedir el nombre
+        let nombre = '';
+        do {
+            nombre = prompt('Ingrese el nombre de la pista')            
+        } while (nombre.length == 0);       
         //Pedir la duracion
+
+        let duracion = 0;
+        do {
+            duracion = prompt('Ingrese duracion de la pista')
+        } while (codigo <= 0 || codigo >= 1000 || isNaN(codigo));
         
         let pista = {
-            nombre: '',
-            duracion: ''
+            
+            nombre : nombre,
+            duracion : duracion
         };
+
         //guardar la pista
         pistas.push(pista)
 
     }
-    while (confirm('Ingrese la pista'));
+    while (confirm('Desea ingresar otra pista?'));
 
     // genera el disco 
     const nuevoDisco = {
@@ -65,10 +84,14 @@ const cargar = () => {
         codigo: codigo,
         nombre: nombre,
         autor: autor,
-        pistas: pistas
-    };
+        pistas: pistas,
+             
+    }
     //Guardamos el disco
     discos.push(nuevoDisco);
+
+} while (confirm('Desea ingresar un nuevo disco?'));
+
 };
 
 // Función Mostrar:
@@ -76,16 +99,25 @@ const cargar = () => {
  const mostrar = () => {
     // Variable para ir armando la cadena:
     let html = '';
-    html += `<p>nombre: ${discos[0].nombre}</p>`;
-    html += `<p>autor: ${discos[0].autor}</p>`;
-    html += `<p>codigo: ${discos[0].codigo}</p>`;
+
+    discos.forEach(disco => {
+        
+    html += `<p>nombre: ${disco.nombre}</p>`;
+    html += `<p>autor: ${disco.autor}</p>`;
+    html += `<p>codigo: ${disco.codigo}</p>`;
     
     // recorrer pistas con ul y li + .map:
-    let detallePistas = discos[0].pistas.map(pista => {
+    let detallePistas = disco.pistas.map(pista => {
         return `<li>${pista.nombre} ${pista.duracion}</li>` 
     })    
 
     html += `<ul>${detallePistas}</ul>`;
+
+    });
+    // Recorrer discos con ul y li + .map:
+
+    let cantidadDiscos = discos.length;
+    html += `<ul>${cantidadDiscos}</ul>`;
 
     // Si modificaste el nombre de la variable para ir armando la cadena, también hacelo acá:
     document.getElementById('info').innerHTML = html; // <--- ahí es acá
@@ -94,20 +126,20 @@ const cargar = () => {
 // Todas las funciones que necesites:
 
 // para cambiar el color
+let duracion = 0;
 
-let duracion = 80;
+function MostrarColor() {
 
-const MostrarColor = function () {
+    let color = 'red';
 
-        let color = 'red'
+    if (duracion <= 80) {
+        color = red;
+    } else {
+        //cambio el color a green
+        color = green;
+    }
 
-        if (duracion <= 80) {
-            color = red;
-        } else {
-            //cambio el color a green
-        }
-    
-    html =  `<p>aca conecto con front</p>`;
+    html = `<p>aca conecto con front</p>`;
 
     document.getElementById('info').innerHTML = html;
 
@@ -123,3 +155,26 @@ const MostrarColor = function () {
 
 
 // para las pistas hacer un ul y li con un .map
+
+// para recorrer 
+/* var array = []
+ array.push({
+    mensajes: ["hola", "stack"]
+  })
+  
+  var mensajes = []; //arreglo que tendrá los mensajes recorridos
+  
+  array.forEach((item) => { //Recorro primer arreglo
+    //Luego recorro la propiedad mensajes dentro del arreglo
+    item.mensajes.forEach((mensaje) => {
+      // Obtengo cada mensaje de la propiedad y la guardo en mi arreglo de mensajes
+      mensajes.push(mensaje);
+    });
+  });
+  
+  // Imprimo todos los mensajes en el html
+  var mensajesDom = document.getElementById('mensajes');
+  mensajesDom.innerHTML = mensajes;
+  */
+
+  // hacer un do whole con la funcion de cargar para los discos al igual que las pistas
